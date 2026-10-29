@@ -1,0 +1,69 @@
+AntiWallHack 1.0.9-fov-preview.1 - varianta experimentala, 29 octombrie 2026
+
+Modifica pluginul SERVERULUI. Nu modifica wallhack-ul.
+
+INSTALARE
+1. Opreste serverul din Emerald.
+2. Salveaza o copie a addons/antiwallhack, addons/metamod/antiwallhack.vdf
+   si cfg/AntiWallHack.cfg din game/csgo.
+3. Copiaza continutul folderului deploy in game/csgo, acceptand inlocuirea.
+   Pastreaza folderul addons/antiwallhack/vis si fisierele .awvis existente.
+4. Pentru test, dezactiveaza CS2FOW mutand doar fisierul sau .vdf din
+   addons/metamod intr-un folder de backup din afara addons/metamod.
+5. Porneste serverul. In consola serverului executa: meta list
+   Trebuie sa apara AntiWallHack 1.0.9-fov-preview.1.
+6. Testeaza in runda activa, dupa freeze time, cu un adversar, fiind viu.
+
+SETARI NOI (game/csgo/cfg/AntiWallHack.cfg, restart dupa editare)
+FovFilter 1           activeaza filtrarea dupa directia privirii
+FovDegrees 160        unghi orizontal TOTAL; interval acceptat 120..360
+FovNearDistance 64    exceptie de proximitate, plus raza corpului si marja
+
+160 inseamna aproximativ 80 de grade in fiecare parte a directiei privirii.
+Nu reprezinta exact dreptunghiul ecranului. Filtrul nu limiteaza verticala.
+Corpul care intersecteaza marginea unghiului ramane eligibil pentru transmitere.
+La distanta foarte mica se permite transmiterea pentru a evita disparitii.
+360 elimina practic restrictionarea unghiulara. FovFilter 0 dezactiveaza
+numai functia noua. Pastreaza AutoUpdate 0 pentru a nu pierde varianta custom.
+Setarile anterioare de pereti raman la zero in configuratia inclusa.
+
+VERIFICARE PE SERVER
+- Cu spatele la iesirea din palat si la distanta, adversarul iese si revine:
+  pozitia sa noua nu ar trebui transmisa din acel loc prin entitatile filtrate.
+- Intoarce-te cu fata spre iesire: adversarul vizibil trebuie sa apara.
+- Testeaza fara ESP intoarceri rapide de 180 grade, scari, adversari apropiati
+  si margini de ecran. Daca apar intarzieri deranjante, seteaza FovDegrees 200
+  sau dezactiveaza FovFilter si reporneste. Nu este necesar build de harta.
+- Verifica si jucatori umani, nu doar boti. Nu testa ca spectator/in warmup.
+
+LIMITE
+Varianta experimentala, netestata pe un server CS2 real de catre autorul
+modificarii. Compilarea/testele locale nu garanteaza compatibilitatea cu
+versiunea CS2 si Metamod de pe Emerald. Metamod trebuie sa ofere KHook API.
+Oprirea transmiterii nu sterge casete sau pozitii deja memorate de un client.
+Nu elimina informatii obtinute din sunete, radar sau alte canale.
+Filtrarea se aplica separat fiecarui privitor, dupa regula de vizibilitate
+reciproca; regula reciproca nu poate anula noul filtru de directie.
+Datele invalide/incomplete permit transmiterea, pentru a evita jucatori
+legitimi invizibili. Intoarcerea rapida a camerei poate produce aparitie tarzie.
+SmokeOcclusion ramane activat, dar aceasta modificare NU confirma si NU repara
+problema de smoke raportata: sunt necesare diagnosticele sale de pornire.
+
+REVENIRE
+Opreste serverul si restaureaza cele trei elemente salvate la pasul 2.
+Nu pune configuratia cu FovFilter/FovDegrees/FovNearDistance in pluginul
+original: acesta nu cunoaste noile setari.
+
+SURSE SI LICENTA
+Derivat din arhiva METAMOD-CS2AntiWallHack-main.zip furnizata de utilizator,
+proiectul ZusDev/METAMOD-CS2AntiWallHack; licenta AGPL-3.0 pastrata in sources.
+Modificari: ViewCone.h, PlayerVisibility.cpp, Config.h, VisibilityRules.h,
+Plugin.cpp (versiune), configuratie, metadata; remedieri ale scriptului de
+build pentru structura SDK din arhiva. Surse si dependinte incluse.
+Teste locale: tests/fov_test.cpp (geometrie, proximitate, input invalid,
+configuratie si serializare). Nu exista test live CS2 inclus.
+Reproducere: Zig 0.13.0, Python 3; seteaza ZIG_EXE la executabilul zig,
+ruleaza python3 build_fov_zig.py link-linux din sources. Rezultat tools/antiwallhack.so.
+Scriptul foloseste o biblioteca tier0 temporara NUMAI pentru legare si
+verificarea simbolurilor; aceasta nu se instaleaza pe server. Serverul foloseste
+propria libtier0.so. Ruleaza python3 check_abi.py tools/antiwallhack.so.

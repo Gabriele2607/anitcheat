@@ -1,0 +1,5 @@
+"Metamod Plugin"
+{
+	"alias"	"antiwallhack"
+	"file"	"addons/antiwallhack/bin/linuxsteamrt64/antiwallhack"
+}

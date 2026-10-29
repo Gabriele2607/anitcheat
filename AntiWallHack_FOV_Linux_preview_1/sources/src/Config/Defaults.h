@@ -1,0 +1,25 @@
+#pragma once
+
+namespace awh
+{
+    inline constexpr const char* DefaultConfig = R"awhcfg(// Experimental minimum configuration for AntiWallHack 1.0.9.
+// Save your previous configuration before installing. Restart the server.
+// These values do not remove the fixed forward sample points in the plugin.
+// May cause late appearance or flicker: test normal gameplay without ESP.
+
+Enabled                      1
+Debug                        1
+SmokeOcclusion               1
+AutoUpdate                   0
+VisibleGraceTicks            0
+BoundsPadding                0
+CornerPrediction             0
+CornerPredictionSeconds      0
+CornerMaxDistance            0
+
+// Experimental horizontal view filter. Restart after editing.
+FovFilter 1
+FovDegrees 160
+FovNearDistance 64
+)awhcfg";
+}

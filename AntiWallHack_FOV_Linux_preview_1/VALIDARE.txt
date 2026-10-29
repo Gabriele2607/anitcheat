@@ -1,0 +1,7 @@
+C++ FOV tests: PASS
+Linux shared library build: PASS (Zig 0.13.0, target glibc 2.31)
+Steam Runtime 3 symbol version check: PASS; maximum GLIBC 2.30
+CreateInterface export: PRESENT
+GNU UNIQUE dynamic symbols: NONE
+CS2 live-server test: NOT PERFORMED
+SHA256 antiwallhack.so: e67f721e966bf29e10ca6166ecfc64c612152e6f789e7212e674fd364d500256
